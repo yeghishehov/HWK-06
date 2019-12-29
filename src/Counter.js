@@ -4,19 +4,22 @@ class Counter extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-        count: 0
+        count: +localStorage.getItem('count') || 0
     };
   }
+
   handleIncreaseCount = () => {
     this.setState(state => ({
       count: state.count + 1
     }));
   };
+
   handleDecreaseCount = () => {
-        this.setState(state => ({
-        count: state.count - 1
-        }));
+    this.setState(state => ({
+      count: state.count - 1
+    }));
   };
+
   handleReset = () => {
     this.setState(state => ({
       count: 0
@@ -24,14 +27,21 @@ class Counter extends React.Component {
   };
 
   render() {
+    const {count} = this.state;
+    localStorage.setItem('count', count)
     return (
         <>    
             <div>
-            <p className="count"> Counter: {this.state.count} </p>
+               <p className="count"> Counter: {count} </p>
             </div>
-            <button className="dec" disabled={this.state.count >= 0} onClick={this.handleDecreaseCount}>-</button>
-            <button className="res" onClick={this.handleReset}>Reset</button>
-            <button className="inc" onClick={this.handleIncreaseCount}>+</button>
+            <button disabled={count <= 0} 
+                    onClick={this.handleDecreaseCount}> -
+            </button>
+            <button disabled={count === 0}
+                    onClick={this.handleReset}> Reset
+            </button>
+            <button onClick={this.handleIncreaseCount}> +              
+            </button>
         </>
     );
   }
