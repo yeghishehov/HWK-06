@@ -13,11 +13,9 @@ class Counter extends React.Component {
     }));
   };
   handleDecreaseCount = () => {
-    if(this.state.count > 0){
         this.setState(state => ({
         count: state.count - 1
         }));
-    }
   };
   handleReset = () => {
     this.setState(state => ({
@@ -31,7 +29,7 @@ class Counter extends React.Component {
             <div>
             <p className="count"> Counter: {this.state.count} </p>
             </div>
-            <button className="dec" onClick={this.handleDecreaseCount}>-</button>
+            <button className="dec" disabled={this.state.count >= 0} onClick={this.handleDecreaseCount}>-</button>
             <button className="res" onClick={this.handleReset}>Reset</button>
             <button className="inc" onClick={this.handleIncreaseCount}>+</button>
         </>
